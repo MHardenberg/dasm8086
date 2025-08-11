@@ -1,0 +1,3 @@
+[submodule "external/theImperialArena"]
+	path = external/theImperialArena
+	url = git@github.com:MHardenberg/theImperialArena.git
