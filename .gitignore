@@ -1,3 +1,6 @@
+# bins
+bin/*
+
 # Prerequisites
 *.d
 
