@@ -28,13 +28,20 @@ int main(int argc, char **argv) {
 
         Arena textBuff;
         if (ArenaInit(&textBuff)) {
-                LOGERROR("failed to create arena. Anorting..");
+                LOGERROR("failed to create arena. Aborting..");
                 return 1;
         }
 
-
         FILE *asmFile;
+        if (asmFile == NULL) {
+                LOGERROR("failed to open file. Aborting..");
+                return 1;
+        }
+
         fopen(argv[1], "rb");
+        char currentByte;
+        do {
+        } while (fread(&currentByte, sizeof(char), 1, asmFile));
 
         return 0;
 }
