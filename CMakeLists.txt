@@ -23,8 +23,9 @@ set(CMAKE_CC_FLAGS_RELEASE "${CMAKE_CC_FLAGS} -O3 -s")
 
 # Executable sources
 # Everthing is just compiled together.
-set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.c ${CMAKE_SOURCE_DIR}/src/instructionList.c)
-
+set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.c
+    ${CMAKE_SOURCE_DIR}/src/instructionList.c
+    ${CMAKE_SOURCE_DIR}/src/instruction.c)
 
 # Executable
 add_executable(dasm8086 ${SOURCES})

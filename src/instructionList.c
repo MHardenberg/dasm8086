@@ -1,5 +1,4 @@
-#include<instructionList.h>
-
+#include <instructionList.h>
 
 InstructionList *createInstructionList(size_t prealloc) {
         InstructionList *list = malloc(sizeof(InstructionList));
@@ -15,12 +14,14 @@ void destroyInstructionList(InstructionList *list) {
         free(list);
 }
 
-int reallocInstructionList(InstructionList * const list, const unsigned int growthFac) {
+int reallocInstructionList(InstructionList *const list,
+                           const unsigned int growthFac) {
         if (growthFac < 2) {
                 return 1;
         }
 
-        Instruction *newData = malloc(growthFac * list->cap * sizeof(Instruction));
+        Instruction *newData =
+            malloc(growthFac * list->cap * sizeof(Instruction));
         if (newData == NULL) {
                 return 1;
         }
@@ -49,5 +50,3 @@ int pushBackInstructionList(InstructionList *list, Instruction *item) {
         list->size++;
         return 0;
 }
-
-

@@ -2,7 +2,6 @@
 #include <instruction.h>
 #include <instructionList.h>
 
-
 int main(int argc, char **argv) {
         assert(argc >= 2);
         if (argv[1] == NULL) {
@@ -18,15 +17,11 @@ int main(int argc, char **argv) {
 
         InstructionList *instructions = createInstructionList(10);
         Instruction inst;
-        uint16_t bytes;
+        InstructionBin instBin;
 
-        while (fread(&bytes, sizeof(char), 2, binFile)) {
-                LOG("%x", bytes);
-                inst.op = MOV_OP;
-                inst.direction = 1;
-                inst.width = 2;
-                inst.reg = 111;
-                inst.rm = 222;
+        while (fread(&instBin, sizeof(char), 2, binFile)) {
+                LOG("%x", instBin.word);
+                parseInstruction(&inst, instBin);
                 if (pushBackInstructionList(instructions, &inst)) {
                         LOGERROR("Failed to append to list");
                 }
