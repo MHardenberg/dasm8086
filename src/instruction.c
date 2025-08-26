@@ -1,5 +1,18 @@
 #include <instruction.h>
 
+
+
+int stringifyInstruction(char *const dest, const Instruction *inst) {
+        if (dest == NULL) {
+                return 1;
+        }
+        if (inst == NULL) {
+                return 1;
+        }
+
+        return 0;
+}
+
 int parseInstruction(Instruction *inst, InstructionBin bin) {
         if (inst == NULL) {
                 return 1;
