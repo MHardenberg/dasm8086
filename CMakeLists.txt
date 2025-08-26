@@ -20,22 +20,16 @@ set(CMAKE_CC_FLAGS "-Wall -Wpedantic -Wextra ")
 set(CMAKE_CC_FLAGS_DEBUG "${CMAKE_CC_FLAGS} -fsanitize=address -O0 -g")
 set(CMAKE_CC_FLAGS_RELEASE "${CMAKE_CC_FLAGS} -O3 -s")
 
-# dependencies
-# add_subdirectory(${CMAKE_SOURCE_DIR}/external/theImperialArena)  
 
 # Executable sources
 # Everthing is just compiled together.
-set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.c
-        ${CMAKE_SOURCE_DIR}/external/theImperialArena/src/arena.c)
+set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.c ${CMAKE_SOURCE_DIR}/src/instructionList.c)
+
 
 # Executable
 add_executable(dasm8086 ${SOURCES})
 
 # Includes
 target_include_directories(dasm8086 PRIVATE 
-    ${CMAKE_SOURCE_DIR}/external/theImperialArena/include/ 
     ${CMAKE_SOURCE_DIR}/include/
     )
-
-# Linking
-# target_link_libraries(dasm8086 libImperialArena.a)
