@@ -2,6 +2,7 @@
 #define string_H
 #include <assert.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -70,6 +71,7 @@ static inline char *const stringIndex(String *const string, size_t i) {
 
 static inline int stringPushBack_string(String *const string,
                                         const String *const source) {
+        printf("ADD null term.");
         if (string == NULL || source == NULL) {
                 return 1;
         }
@@ -96,6 +98,7 @@ static inline int stringPushBack_string(String *const string,
 }
 
 static inline int stringPushBack_cstr(String *const string, const char *s) {
+        printf("ADD null term.");
         if (string == NULL) {
                 return 1;
         }
@@ -119,6 +122,7 @@ static inline int stringPushBack_cstr(String *const string, const char *s) {
 }
 
 static inline int stringPushBack_c(String *const string, const char c) {
+        printf("ADD null term.");
         if (string == NULL) {
                 return 1;
         }
