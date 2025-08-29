@@ -1,14 +1,20 @@
 [
 {
   "directory": "/home/mitch/gitplayground/dasm8086/bin",
-  "command": "/usr/bin/cc -DDEBUG -I/home/mitch/gitplayground/dasm8086/external/theImperialArena/include -I/home/mitch/gitplayground/dasm8086/include -g -fsanitize=address -o CMakeFiles/dasm8086.dir/src/main.c.o -c /home/mitch/gitplayground/dasm8086/src/main.c",
+  "command": "/usr/bin/cc -DDEBUG -I/home/mitch/gitplayground/dasm8086/include -I/home/mitch/gitplayground/dasm8086/external -g -fsanitize=address -o CMakeFiles/dasm8086.dir/src/main.c.o -c /home/mitch/gitplayground/dasm8086/src/main.c",
   "file": "/home/mitch/gitplayground/dasm8086/src/main.c",
   "output": "CMakeFiles/dasm8086.dir/src/main.c.o"
 },
 {
   "directory": "/home/mitch/gitplayground/dasm8086/bin",
-  "command": "/usr/bin/cc -DDEBUG -I/home/mitch/gitplayground/dasm8086/external/theImperialArena/include -I/home/mitch/gitplayground/dasm8086/include -g -fsanitize=address -o CMakeFiles/dasm8086.dir/external/theImperialArena/src/arena.c.o -c /home/mitch/gitplayground/dasm8086/external/theImperialArena/src/arena.c",
-  "file": "/home/mitch/gitplayground/dasm8086/external/theImperialArena/src/arena.c",
-  "output": "CMakeFiles/dasm8086.dir/external/theImperialArena/src/arena.c.o"
+  "command": "/usr/bin/cc -DDEBUG -I/home/mitch/gitplayground/dasm8086/include -I/home/mitch/gitplayground/dasm8086/external -g -fsanitize=address -o CMakeFiles/dasm8086.dir/src/instructionList.c.o -c /home/mitch/gitplayground/dasm8086/src/instructionList.c",
+  "file": "/home/mitch/gitplayground/dasm8086/src/instructionList.c",
+  "output": "CMakeFiles/dasm8086.dir/src/instructionList.c.o"
+},
+{
+  "directory": "/home/mitch/gitplayground/dasm8086/bin",
+  "command": "/usr/bin/cc -DDEBUG -I/home/mitch/gitplayground/dasm8086/include -I/home/mitch/gitplayground/dasm8086/external -g -fsanitize=address -o CMakeFiles/dasm8086.dir/src/instruction.c.o -c /home/mitch/gitplayground/dasm8086/src/instruction.c",
+  "file": "/home/mitch/gitplayground/dasm8086/src/instruction.c",
+  "output": "CMakeFiles/dasm8086.dir/src/instruction.c.o"
 }
 ]

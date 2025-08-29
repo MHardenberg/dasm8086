@@ -33,4 +33,5 @@ add_executable(dasm8086 ${SOURCES})
 # Includes
 target_include_directories(dasm8086 PRIVATE 
     ${CMAKE_SOURCE_DIR}/include/
+    ${CMAKE_SOURCE_DIR}/external/
     )

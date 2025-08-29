@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
-
 #include <debug.h>
 
 #define FILE_HEADER                                                            \

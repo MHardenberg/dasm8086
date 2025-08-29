@@ -1,6 +1,5 @@
 #ifndef string_H
 #define string_H
-#include <assert.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +10,7 @@
 typedef struct {
         size_t size;
         size_t cap;
-        char *str;
+        char *cstr;
 } String;
 
 int createString(String *string, size_t prealloc) {
@@ -20,15 +19,16 @@ int createString(String *string, size_t prealloc) {
         }
         string->size = 0;
         string->cap = prealloc;
-        string->str = malloc(sizeof(char) * string->cap);
-        if (string->str == NULL) {
+        string->cstr = malloc(sizeof(char) * (string->cap + 1)); // for \0
+        if (string->cstr == NULL) {
                 return 1;
         }
 
+        string->cstr[0] = '\0';
         return 0;
 }
 
-int growString(String *string, size_t growthFactor) {
+int growString(String *string, const size_t growthFactor) {
         if (string == NULL) {
                 return 1;
         }
@@ -37,28 +37,31 @@ int growString(String *string, size_t growthFactor) {
         }
 
         size_t newCap = string->cap * growthFactor;
-        char *newStr = malloc(newCap);
-        if (newStr == NULL) {
+        char *newCstr = malloc((sizeof(char)) * (newCap + 1)); // for \0
+        if (newCstr == NULL) {
                 return 1;
         }
 
         // copy data
-        assert(newCap > string->size);
-        memcpy(newStr, string->str, string->size);
+        strncpy(newCstr, string->cstr, string->size);
+        string->cstr[0] = '\0';
 
-        free(string->str);
-        string->str = newStr;
+        free(string->cstr);
+        string->cstr = newCstr;
         string->cap = newCap;
 
         return 0;
 }
 
-static inline char *const stringIndex(String *const string, size_t i) {
+static inline char *const stringIdx(String *const string, size_t i) {
         if (string == NULL) {
                 return NULL;
         }
+        if (string->cstr == NULL || i >= string->size) {
+                return NULL;
+        }
 
-        return (string->str + i);
+        return (string->cstr + i);
 }
 
 #define stringPushBack(string, x) (_Generic((x),\
@@ -71,7 +74,6 @@ static inline char *const stringIndex(String *const string, size_t i) {
 
 static inline int stringPushBack_string(String *const string,
                                         const String *const source) {
-        printf("ADD null term.");
         if (string == NULL || source == NULL) {
                 return 1;
         }
@@ -85,63 +87,50 @@ static inline int stringPushBack_string(String *const string,
                 }
         }
 
-        for (size_t i = 0; i < source->size; ++i) {
-                char *d = string->str + i + string->size;
-                char *s = source->str + i;
-                if (d == NULL || s == NULL) {
-                        return 1;
-                }
-                *d = *s;
-        }
-
+        memcpy(string->cstr + string->size, source->cstr, source->size);
+        string->size += source->size;
+        string->cstr[0] = '\0';
         return 0;
 }
 
 static inline int stringPushBack_cstr(String *const string, const char *s) {
-        printf("ADD null term.");
         if (string == NULL) {
                 return 1;
         }
 
         size_t len = strlen(s);
-        if (string->size + len == string->cap) {
+        if (string->size + len >= string->cap) {
                 if (growString(string, STRING_GROWTH_FAC)) {
                         return 1;
                 }
         }
 
-        for (size_t i = 0; i < len; ++i) {
-                char *d = stringIndex(string, i);
-                if (d == NULL) {
-                        return 1;
-                }
-                *d = s[i];
-        }
-
+        memcpy(string->cstr + string->size, s, len);
+        string->size += len;
+        string->cstr[0] = '\0';
         return 0;
 }
 
 static inline int stringPushBack_c(String *const string, const char c) {
-        printf("ADD null term.");
         if (string == NULL) {
                 return 1;
         }
 
-        if (string->size + 1 == string->cap) {
+        if (string->size + 1 >= string->cap) {
                 if (growString(string, STRING_GROWTH_FAC)) {
                         return 1;
                 }
         }
 
-        string->str[string->size++] = c;
-
+        string->cstr[string->size++] = c;
+        string->cstr[string->size] = '\0';
         return 0;
 }
 
 void destroyString(String *string) {
-        if (string && string->str) {
-                free(string->str);
-                string->str = NULL;
+        if (string && string->cstr) {
+                free(string->cstr);
+                string->cstr = NULL;
                 string->size = 0;
                 string->cap = 0;
         }

@@ -1,9 +1,10 @@
 #include <defs.h>
+#include <stdio.h>
 #include <instruction.h>
 #include <instructionList.h>
+#include <dsa/include/dsaString.h>
 
 int main(int argc, char **argv) {
-        assert(argc >= 2);
         if (argv[1] == NULL) {
                 LOGERROR("failed to open file. Aborting..");
         }
