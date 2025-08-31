@@ -1,19 +1,7 @@
 #include <instruction.h>
+#include "debug.h"
 
-
-
-int stringifyInstruction(char *const dest, const Instruction *inst) {
-        if (dest == NULL) {
-                return 1;
-        }
-        if (inst == NULL) {
-                return 1;
-        }
-
-        return 0;
-}
-
-int parseInstruction(Instruction *inst, InstructionBin bin) {
+int decodeInstruction(Instruction *inst, InstructionBin bin) {
         if (inst == NULL) {
                 return 1;
         }
@@ -38,6 +26,26 @@ int parseInstruction(Instruction *inst, InstructionBin bin) {
                 inst->reg = (0b00111000 & data) >> 3;
                 inst->rm = 0b00000111 & data;
                 break;
+        }
+        }
+
+        return 0;
+}
+
+int encodeInstruction(String *dest, Instruction *inst) {
+        if (dest == NULL || inst == NULL) {
+                return 1;
+        }
+
+        switch (inst->op) {
+        case MOV_OP: {
+                const char operationCode[] = "mov ";
+                stringPushBack(dest, operationCode);
+                break;
+        }
+
+        case DEFAULT_OP: {
+                LOGERROR("Invalid function");
         }
         }
 

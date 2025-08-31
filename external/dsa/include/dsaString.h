@@ -13,45 +13,9 @@ typedef struct {
         char *cstr;
 } String;
 
-int createString(String *string, size_t prealloc) {
-        if (string == NULL) {
-                return 1;
-        }
-        string->size = 0;
-        string->cap = prealloc;
-        string->cstr = malloc(sizeof(char) * (string->cap + 1)); // for \0
-        if (string->cstr == NULL) {
-                return 1;
-        }
+int createString(String *string, size_t prealloc);
 
-        string->cstr[0] = '\0';
-        return 0;
-}
-
-int growString(String *string, const size_t growthFactor) {
-        if (string == NULL) {
-                return 1;
-        }
-        if (growthFactor < 2) {
-                return 1;
-        }
-
-        size_t newCap = string->cap * growthFactor;
-        char *newCstr = malloc((sizeof(char)) * (newCap + 1)); // for \0
-        if (newCstr == NULL) {
-                return 1;
-        }
-
-        // copy data
-        strncpy(newCstr, string->cstr, string->size);
-        string->cstr[0] = '\0';
-
-        free(string->cstr);
-        string->cstr = newCstr;
-        string->cap = newCap;
-
-        return 0;
-}
+int growString(String *string, const size_t growthFactor);
 
 static inline char *const stringIdx(String *const string, size_t i) {
         if (string == NULL) {
@@ -64,13 +28,13 @@ static inline char *const stringIdx(String *const string, size_t i) {
         return (string->cstr + i);
 }
 
-#define stringPushBack(string, x) (_Generic((x),\
-        char: stringPushBack_c(string, x),\
-        const char: stringPushBack_c(string, x),\
-        char*: stringPushBack_cstr(string, x),\
-        const char*: stringPushBack_cstr(string, x),\
-        String*: stringPushBack_string(string, x),\
-        const String*: stringPushBack_string(string, x))
+#define stringPushBack(string, x)                                              \
+        _Generic((x),                                                          \
+            char: (stringPushBack_c),                                          \
+            char *: (stringPushBack_cstr),                                     \
+            const char *: (stringPushBack_cstr),                               \
+            String *: (stringPushBack_string),                                 \
+            const String *: (stringPushBack_string))(string, x)
 
 static inline int stringPushBack_string(String *const string,
                                         const String *const source) {
@@ -89,7 +53,7 @@ static inline int stringPushBack_string(String *const string,
 
         memcpy(string->cstr + string->size, source->cstr, source->size);
         string->size += source->size;
-        string->cstr[0] = '\0';
+        string->cstr[string->size] = '\0';
         return 0;
 }
 
@@ -107,7 +71,7 @@ static inline int stringPushBack_cstr(String *const string, const char *s) {
 
         memcpy(string->cstr + string->size, s, len);
         string->size += len;
-        string->cstr[0] = '\0';
+        string->cstr[string->size] = '\0';
         return 0;
 }
 
@@ -127,13 +91,6 @@ static inline int stringPushBack_c(String *const string, const char c) {
         return 0;
 }
 
-void destroyString(String *string) {
-        if (string && string->cstr) {
-                free(string->cstr);
-                string->cstr = NULL;
-                string->size = 0;
-                string->cap = 0;
-        }
-}
+void destroyString(String *string);
 
 #endif // string_H

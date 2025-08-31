@@ -25,7 +25,8 @@ set(CMAKE_CC_FLAGS_RELEASE "${CMAKE_CC_FLAGS} -O3 -s")
 # Everthing is just compiled together.
 set(SOURCES ${CMAKE_SOURCE_DIR}/src/main.c
     ${CMAKE_SOURCE_DIR}/src/instructionList.c
-    ${CMAKE_SOURCE_DIR}/src/instruction.c)
+    ${CMAKE_SOURCE_DIR}/src/instruction.c
+    ${CMAKE_SOURCE_DIR}/external/dsa/src/dsaString.c)
 
 # Executable
 add_executable(dasm8086 ${SOURCES})
@@ -33,5 +34,5 @@ add_executable(dasm8086 ${SOURCES})
 # Includes
 target_include_directories(dasm8086 PRIVATE 
     ${CMAKE_SOURCE_DIR}/include/
-    ${CMAKE_SOURCE_DIR}/external/
+    ${CMAKE_SOURCE_DIR}/external/dsa/include
     )
